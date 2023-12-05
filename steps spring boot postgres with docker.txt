@@ -1,0 +1,92 @@
+descargar extensiones para java
+
+1.extension pack for java
+ 2.spring inicialiter 
+java supoort
+
+3.create java project in visual stucio code 
+4.click create java an select spring boot then select maven and then 3.0.4 and lenguaje java ,then .com.example , id artifact es nombre  del proyecto puede ser "prueba" , package type jar ,java 17  and specify dependencies
+
+3 dependencies (spring web , spring data jpa , postgresql driver) , seleccionar ubicacion del proyecto
+ 
+
+5 . open project with open project 
+
+6. run proyect ,appear error , this error is because spring needs to conection to db  , do the following
+
+create docker-compose.yml file and write config , and then run with docker compose up -d java_db   "java db is the name of container " , if need to run every image  , run  "docker compose up -d"
+
+7. for execute the db by terminal ,do with this command "docker-compose exec -it java_db psql -U postgres -d postgres  " java_db is the name of service , is running in container 
+
+
+for log in database "docker-compose exec -it java_db psql -U postgres -d postgres"
+
+
+8. the next is connect app with db  , make in file  application.properties in main/resources 
+
+
+ejm:
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+
+and run proyect main , if everything  is good , the project is ready
+
+
+9.create folder user in java/com/example/prueba
+
+10.create 3 files in this directory
+
+User.java => import jakarta.persistence.*; for persistence with db  ,@Entity
+@Table(name = "users") for comunicatioon model wi th db  and define the fields of model 
+
+and getters and setters 
+
+create UserRepository.java in the same folder "user"
+
+in this file delete all inside and add this "package com.example.prueba.user;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+
+}"
+
+and the last file create UserController.java
+
+ in this make the methods http for controller
+
+
+
+and finish with this 3 files 
+
+11. run project and see how spring create table users by definition of @Entity and his fields 
+
+12. run command mvn clean package   , if no exits , download maven an config variables and restart pc, mvn clean package create jar aplication
+
+13 . make the file Dockerfile , java aplication dockerizada 
+
+and add new service for aplication java in docker.compose.yml  ,and build again with mvn clean package , if ocurry error make with mvn clean package -DskipTests
+
+and finallly the aplication is be dockerizada
+
+
+14.docker compose build for build container 
+
+15.  docker compose up and see ,container with java app, java db  and test with insomnia o postman
+
+
+
+
+
+
+
+
+
+
+
