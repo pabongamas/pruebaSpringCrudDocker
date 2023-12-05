@@ -81,8 +81,23 @@ and finallly the aplication is be dockerizada
 15.  docker compose up and see ,container with java app, java db  and test with insomnia o postman
 
 
+si se realiza una conexion a ms sql server,esto seescribe en el aplication properties
+
+# DataSource configuration
+spring.datasource.url=jdbc:sqlserver://JHONJAIRO:1434;databaseName=master
+spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+# Use Windows Authentication
+spring.datasource.authentication=windowsAuthentication
+
+# Hibernate Configuration
+spring.jpa.database-platform=org.hibernate.dialect.SQLServerDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
 
 
+
+JHONJAIRO era el nombre del server , si no esporwindows autenticacion ahi si colocar user and password
 
 
 
