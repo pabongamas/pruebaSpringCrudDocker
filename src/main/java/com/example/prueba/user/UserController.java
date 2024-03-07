@@ -3,6 +3,8 @@ package com.example.prueba.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +27,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id).get();
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+            try {
+                User user=userRepository.findById(id).get();
+                return new ResponseEntity<User>(user, HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
+            }
     }
 
     @PostMapping
